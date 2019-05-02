@@ -22,12 +22,23 @@ class App extends React.Component {
     const deletedTasks = this.state.tasks.filter(item => {
       return (item.id !== id);
     });
-    console.log(id);
-    console.log(deletedTasks);
     this.setState({
       tasks: deletedTasks
     });
   }
+
+  completeTask = (id) => {
+    const completedTasks = this.state.tasks.map(item => {
+      if (item.id === id) {
+        item.completed = true;
+      }
+      return item;
+    });
+    this.setState({
+      tasks: completedTasks
+    });
+    console.log(completedTasks);
+  };
 
   addTask = (newTask) => {
     const newTasks = this.state.tasks.slice();
@@ -59,6 +70,7 @@ class App extends React.Component {
           return (
           <TaskItem
           deleteTask={this.deleteTask}
+          completeTask={this.completeTask}
           key={i} 
           id={item.id}
           taskText={item.task}
